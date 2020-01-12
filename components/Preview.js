@@ -8,13 +8,13 @@ import {
   Text,
   StyleSheet,
   View,
-  Platform
+  Platform,
+  TouchableWithoutFeedback
 } from "react-native";
-import Card from '../components/Card';
-import Icon from '../components/TabBarIcon';
+import Card from "../components/Card";
+import Icon from "../components/TabBarIcon";
 
 const preview = props => {
-
   // let exceedanceCheck;
 
   // if (props.exceedance === 'Yes') {
@@ -24,23 +24,21 @@ const preview = props => {
   // }
 
   return (
-  <Card style={styles.preview}>
-    <Text>{props.name}</Text>
-    <Text>{props.sampleLocation}</Text>
-    
-    <View style={styles.open}>
-      
-    <Icon
-      onPress={props.onSelect}
-      focused={props.focus}
-      name={
-        Platform.OS === 'ios'
-          ? 'ios-open'
-          : 'md-open'
-      }
-    />
-    </View>
-  </Card>);
+    <Card style={styles.preview}>
+      <Text>{props.name}</Text>
+      <Text>{props.sampleLocation}</Text>
+
+      <View style={styles.open}>
+        
+          <Button
+            
+            onPress={props.onSelect}
+            title='DETAILS'
+          />
+       
+      </View>
+    </Card>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -50,9 +48,8 @@ const styles = StyleSheet.create({
   open: {
     right: 0,
     top: 0,
-    position: 'absolute',
-    paddingRight: 3
+    position: "absolute",
   }
-})
+});
 
 export default preview;

@@ -106,16 +106,13 @@ class SearchScreen extends React.Component {
   }
 
   schoolDetailsHandler(id) {
-    this.setState({detailsSelected: true})
-    console.log('id: ' + id)
     this.setState({ selectedSchoolId: id });
     let currentSchool = this.state.schools;
     for (let i = 0; i < currentSchool.length; i++) {
       if (currentSchool[i].id === id) {
         this.setState({
-         
           loadedSchool: currentSchool[i],
-          
+          detailsSelected: true
         });
       }
     }
@@ -174,7 +171,7 @@ class SearchScreen extends React.Component {
     
     
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Image
           source={require("../assets/images/factsolotlBG.png")}
           style={styles.backgroundImage}
@@ -225,7 +222,7 @@ class SearchScreen extends React.Component {
         />
         {details}
         <ScrollView>{content}</ScrollView>
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -1,5 +1,14 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
+import {
+  ScrollView,
+  Modal,
+  StyleSheet,
+  Text,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  Button
+} from "react-native";
 
 const Details = props => {
   let school = null;
@@ -10,19 +19,27 @@ const Details = props => {
     const sampleDay = sampleDate.getDate();
 
     school = (
-      <View style={styles.modal}>
-        <Button onPress={e => props.closeDetails(e)} title="close" />
-
-        <Text>{props.loadedSchool.school_name}</Text>
-        <Text>School district: {props.loadedSchool.district}</Text>
-        <Text>Exceedance: {props.loadedSchool.action_level_exceedance}</Text>
-        <Text>Lead concentration: {props.loadedSchool.result} ppb</Text>
-        <Text>Sampled from: {props.loadedSchool.school_site_name}</Text>
-        <Text>
-          Date sampled: {sampleMonth}/{sampleDay}/{sampleYear}
-        </Text>
-        <Text>Water system: {props.loadedSchool.water_system_name}</Text>
-      </View>
+      <Modal animationType={"slide"} transparent={false}>
+        <View style={styles.modal}>
+      
+          <View style={styles.modalContent}>
+          <Text>{props.loadedSchool.school_name}</Text>
+          <Text>School district: {props.loadedSchool.district}</Text>
+          <Text>Exceedance: {props.loadedSchool.action_level_exceedance}</Text>
+          <Text>Lead concentration: {props.loadedSchool.result} ppb</Text>
+          <Text>Sampled from: {props.loadedSchool.school_site_name}</Text>
+          <Text>
+            Date sampled: {sampleMonth}/{sampleDay}/{sampleYear}
+          </Text>
+          <Text>Water system: {props.loadedSchool.water_system_name}</Text>
+          </View>
+          <TouchableHighlight style={styles.close} onPress={e => props.closeDetails(e)}>
+            <View >
+              <Text style={styles.closeButton}>CLOSE</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      </Modal>
     );
   }
   return school;
@@ -31,10 +48,25 @@ const Details = props => {
 const styles = StyleSheet.create({
   modal: {
     flex: 1,
-    position: "absolute",
-    zIndex: 1,
-    top: 0,
-    right: 0
+    padding: 10,
+    justifyContent: 'center',
+  },
+  close: {
+    backgroundColor: "red",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    height: 30,
+    borderRadius: 5
+  },
+  closeButton: {
+    
+    color: "white"
+  },
+  modalContent: {
+    marginTop: 50,
+    backgroundColor: 'white'
   }
-})
+});
 export default Details;
