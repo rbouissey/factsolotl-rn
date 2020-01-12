@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testing-tab-app",
-    "slug": "testing-tab-app",
+    "name": "factsolotl-rn",
+    "slug": "Factsolotl",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -11,11 +11,10 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/bubbleF.png",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/factsolotlBG.png",
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
