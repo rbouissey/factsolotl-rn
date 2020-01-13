@@ -24,9 +24,6 @@ export default function Home() {
         </Text>
       </Card>
 
-      <Button title="Begin Search" />
-
-     
       <Card>
         <Text>
           The map shows the number of samples, per county, that had a lead

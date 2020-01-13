@@ -13,16 +13,23 @@ import {
 } from "react-native";
 
 const Filters = props => {
-  return(
+  let exceedanceCheck;
+  props.exceedance ? exceedanceCheck = 'Only show schools with exceedances' : exceedanceCheck = 'Show schools with and without exceedances'
+
+
+    return(
     <Modal animationType={"slide"} transparent={false}>
         <View style={styles.modal}>
       
-         
-        <Switch 
+         <View>
+         <Switch 
           style={styles.switch}
           value={props.exceedance}
           onValueChange={props.toggleExceedance}
         />
+          <Text>{exceedanceCheck}</Text>
+         </View>
+        
         <Picker
             selectedValue={props.year}
             style={styles.picker}
@@ -41,9 +48,6 @@ const Filters = props => {
               <Text style={styles.closeButton}>Apply Filters</Text>
             </View>
           </TouchableHighlight>
-
-
-
         </View>
       </Modal>
   )

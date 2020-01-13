@@ -16,8 +16,9 @@ import axios from "axios";
 import { v4 } from "uuid";
 import List from "../containers/List";
 import Card from "../components/Card";
-import Details from '../components/DetailsModal';
-import Filters from '../components/FiltersModal';
+import Details from "../components/DetailsModal";
+import Filters from "../components/FiltersModal";
+import Results from "../components/ResultsModal";
 
 class SearchScreen extends React.Component {
   state = {
@@ -121,6 +122,16 @@ class SearchScreen extends React.Component {
     }
   }
 
+  newSearchHandler() {
+    this.setState({
+      queried: !this.state.queried,
+      querySuccess: !this.state.querySuccess,
+      schools: [],
+      schoolQuery: "",
+      countyQuery: ""
+    });
+  }
+
   render() {
     let content = (
       <Text>Filter search by school name, county, year, and exceedance.</Text>
@@ -141,7 +152,7 @@ class SearchScreen extends React.Component {
       this.state.querySuccess === true
     ) {
       content = (
-        <List
+        <Results
           error={this.state.error}
           schools={this.state.schools}
           selectedSchoolId={this.state.selectedSchoolId}
@@ -152,7 +163,11 @@ class SearchScreen extends React.Component {
           mapData={this.mapDataHandler}
           total={this.state.total}
           success={this.state.querySuccess}
-          focus={this.state.detailsSelected}
+          closeResults={() => this.newSearchHandler()}
+          id={this.state.selectedSchoolId}
+          loadedSchool={this.state.loadedSchool}
+          closeDetails={e => this.toggleDetails(e)}
+          seeDetails={this.state.detailsSelected}
         />
       );
     } else if (
@@ -160,46 +175,39 @@ class SearchScreen extends React.Component {
       this.state.querySuccess === false
     ) {
       content = <Text>Loading...</Text>;
-    } 
-
-    let details;
-    if(this.state.detailsSelected){
-      details =   <Details 
-      id={this.state.selectedSchoolId}
-      loadedSchool={this.state.loadedSchool}
-      closeDetails={e => this.toggleDetails(e)}
-      />
     }
 
     let filters;
-    if(this.state.filtersSelected){
-      filters =   <Filters 
-        filterSelected={this.state.filterSelected}
-        applyFilters={() => this.setState({filtersSelected: !this.state.filtersSelected})}
-        toggleExceedance={() => this.setState({exceedance: !this.state.exceedance})}
-        year={this.state.yearQuery}
-        onYearSelect={(e) => this.setState({ yearQuery: e })}
-        exceedance={this.state.exceedance}
-
-      />
+    if (this.state.filtersSelected) {
+      filters = (
+        <Filters
+          filterSelected={this.state.filterSelected}
+          applyFilters={() =>
+            this.setState({ filtersSelected: !this.state.filtersSelected })
+          }
+          toggleExceedance={() =>
+            this.setState({ exceedance: !this.state.exceedance })
+          }
+          year={this.state.yearQuery}
+          onYearSelect={e => this.setState({ yearQuery: e })}
+          exceedance={this.state.exceedance}
+        />
+      );
     }
 
-    
-    console.log(this.state.exceedance)
     return (
       <ScrollView style={styles.container}>
-        <Image
-          source={require("../assets/images/factsolotlBG.png")}
-          style={styles.backgroundImage}
-        />
         <Card style={styles.filters}>
-          
-        <TouchableHighlight style={styles.filter} onPress={() => this.setState({filtersSelected: !this.state.filtersSelected})}>
+          <TouchableHighlight
+            style={styles.filter}
+            onPress={() =>
+              this.setState({ filtersSelected: !this.state.filtersSelected })
+            }
+          >
             <View>
               <Text style={styles.filterButton}>Apply Filters</Text>
             </View>
           </TouchableHighlight>
-
         </Card>
         <Card>
           <Text>Search by school:</Text>
@@ -211,13 +219,13 @@ class SearchScreen extends React.Component {
           />
         </Card>
         <Card>
-        <Text>Search by county:</Text>
-        <TextInput
-          style={{ height: 40, width: "50%" }}
-          placeholder="Search..."
-          onChangeText={e => this.setState({ countyQuery: e })}
-          value={this.state.countyQuery}
-        />
+          <Text>Search by county:</Text>
+          <TextInput
+            style={{ height: 40, width: "50%" }}
+            placeholder="Search..."
+            onChangeText={e => this.setState({ countyQuery: e })}
+            value={this.state.countyQuery}
+          />
         </Card>
 
         <Button
@@ -226,7 +234,6 @@ class SearchScreen extends React.Component {
             this.queryHandler(e);
           }}
         />
-        {details}
         {filters}
         <ScrollView>{content}</ScrollView>
       </ScrollView>
@@ -252,13 +259,13 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 30,
-    width: '50%',
-    position: 'absolute',
+    width: "50%",
+    position: "absolute",
     top: 0,
     left: 0
   },
   switch: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0
   },
