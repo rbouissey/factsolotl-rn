@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Heatmap } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
-export default class App extends Component {
+export default class MapScreen extends Component {
   render() {
     let points = [{ latitude: 34.052235, longitude: -118.243683, weight: 1 }];
     return (

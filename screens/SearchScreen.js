@@ -8,7 +8,8 @@ import {
   Text,
   StyleSheet,
   View,
-  Switch
+  Switch,
+  TouchableHighlight
 } from "react-native";
 import HeaderImage from "../components/HeaderImage";
 import axios from "axios";
@@ -16,6 +17,7 @@ import { v4 } from "uuid";
 import List from "../containers/List";
 import Card from "../components/Card";
 import Details from '../components/DetailsModal';
+import Filters from '../components/FiltersModal';
 
 class SearchScreen extends React.Component {
   state = {
@@ -30,7 +32,8 @@ class SearchScreen extends React.Component {
     total: null,
     queried: false,
     querySuccess: false,
-    detailsSelected: false
+    detailsSelected: false,
+    filtersSelected: false
   };
 
   queryHandler() {
@@ -168,8 +171,21 @@ class SearchScreen extends React.Component {
       />
     }
 
+    let filters;
+    if(this.state.filtersSelected){
+      filters =   <Filters 
+        filterSelected={this.state.filterSelected}
+        applyFilters={() => this.setState({filtersSelected: !this.state.filtersSelected})}
+        toggleExceedance={() => this.setState({exceedance: !this.state.exceedance})}
+        year={this.state.yearQuery}
+        onYearSelect={(e) => this.setState({ yearQuery: e })}
+        exceedance={this.state.exceedance}
+
+      />
+    }
+
     
-    
+    console.log(this.state.exceedance)
     return (
       <ScrollView style={styles.container}>
         <Image
@@ -177,24 +193,14 @@ class SearchScreen extends React.Component {
           style={styles.backgroundImage}
         />
         <Card style={styles.filters}>
+          
+        <TouchableHighlight style={styles.filter} onPress={() => this.setState({filtersSelected: !this.state.filtersSelected})}>
+            <View>
+              <Text style={styles.filterButton}>Apply Filters</Text>
+            </View>
+          </TouchableHighlight>
 
-       
-        <Switch 
-          style={styles.switch}
-        />
-        <Picker
-            selectedValue={this.state.yearQuery}
-            style={styles.picker}
-            onValueChange={e => {
-              this.setState({ yearQuery: e });
-            }}
-          >
-            <Picker.Item label="ALL YEARS" value="" />
-            <Picker.Item label="2017" value="2017" />
-            <Picker.Item label="2018" value="2018" />
-            <Picker.Item label="2019" value="2019" />
-          </Picker>
-          </Card>
+        </Card>
         <Card>
           <Text>Search by school:</Text>
           <TextInput
@@ -221,6 +227,7 @@ class SearchScreen extends React.Component {
           }}
         />
         {details}
+        {filters}
         <ScrollView>{content}</ScrollView>
       </ScrollView>
     );
@@ -257,6 +264,9 @@ const styles = StyleSheet.create({
   },
   filters: {
     flex: 1
+  },
+  exCheck: {
+    padding: 10
   }
 });
 
