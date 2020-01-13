@@ -9,33 +9,31 @@ import {
   StyleSheet,
   View,
   Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableHighlight
 } from "react-native";
 import Card from "../components/Card";
-import Icon from "../components/TabBarIcon";
 
 const preview = props => {
-  // let exceedanceCheck;
-
-  // if (props.exceedance === 'Yes') {
-  //     exceedanceCheck = 'redBG pulse btn-floating btn waves-effect waves-dark red'
-  // } else if (props.exceedance === 'No') {
-  //     exceedanceCheck = 'greenBG btn-floating btn waves-effect waves-dark white'
-  // }
+  let exceedanceCheck;
+  if(props.exceedance === 'Yes'){
+    exceedanceCheck = styles.openRed
+  }
+  if(props.exceedance === 'No'){
+    exceedanceCheck = styles.openBlue
+  }
 
   return (
     <Card style={styles.preview}>
       <Text>{props.name}</Text>
       <Text>{props.sampleLocation}</Text>
 
-      <View style={styles.open}>
-        
-          <Button
-            
-            onPress={props.onSelect}
-            title='DETAILS'
-          />
-       
+      <View style={exceedanceCheck}>
+        <TouchableHighlight onPress={props.onSelect}>
+          <View>
+            <Text style={styles.detailButton}>DETAILS</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </Card>
   );
@@ -43,12 +41,26 @@ const preview = props => {
 
 const styles = StyleSheet.create({
   preview: {
-    flex: 1
+    flex: 1,
+    borderColor: "grey",
+    borderWidth: 0.5
   },
-  open: {
+  openRed: {
     right: 0,
     top: 0,
     position: "absolute",
+    backgroundColor: 'red',
+    padding: 5,
+  },
+  openBlue: {
+    right: 0,
+    top: 0,
+    position: "absolute",
+    backgroundColor: 'blue',
+    padding: 5,
+  },
+  detailButton: {
+    color: 'white'
   }
 });
 

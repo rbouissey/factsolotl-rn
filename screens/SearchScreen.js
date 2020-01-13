@@ -14,11 +14,9 @@ import {
 import HeaderImage from "../components/HeaderImage";
 import axios from "axios";
 import { v4 } from "uuid";
-import List from "../containers/List";
 import Card from "../components/Card";
-import Details from "../components/DetailsModal";
 import Filters from "../components/FiltersModal";
-import Results from "../components/ResultsModal";
+import Results from "../containers/ResultsModal";
 
 class SearchScreen extends React.Component {
   state = {

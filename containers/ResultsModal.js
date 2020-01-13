@@ -11,7 +11,7 @@ import {
   Switch,
   Picker
 } from "react-native";
-import List from "../containers/List";
+import List from "./List";
 import Details from "../components/DetailsModal";
 
 const Results = props => {
@@ -28,6 +28,7 @@ const Results = props => {
   return (
     <Modal animationType={"slide"} transparent={false}>
       <View style={styles.modal}>
+        <ScrollView>
         <List
           error={props.error}
           schools={props.schools}
@@ -40,6 +41,8 @@ const Results = props => {
           total={props.total}
           success={props.success}
         />
+        </ScrollView>
+       
         {details}
 
         <TouchableHighlight
