@@ -18,7 +18,8 @@ const Filters = props => {
 
   return (
     <View style={styles.filters}>
-      <View style={styles.switch}>
+ 
+ <View style={styles.switch}>
       <Switch
           value={props.exceedance}
           onValueChange={props.toggleExceedance}
@@ -28,7 +29,6 @@ const Filters = props => {
         </View>
        
       </View>
-
       <Picker
         selectedValue={props.year}
         style={styles.picker}
@@ -41,6 +41,7 @@ const Filters = props => {
         <Picker.Item label="2018" value="2018" />
         <Picker.Item label="2019" value="2019" />
       </Picker>
+  
     </View>
   );
 };
@@ -61,7 +62,11 @@ const styles = StyleSheet.create({
   },
   exText: {
     padding: 10
+  },
+  picker: {
+    width: '50%'
   }
+  
 });
 
 export default Filters;

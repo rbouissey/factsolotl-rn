@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, View, Button, Text } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import counties from "../constants/Coordinates";
+import HeaderImage from "../components/HeaderImage";
+
 
 export default class MapScreen extends Component {
   state = {
@@ -48,6 +50,15 @@ export default class MapScreen extends Component {
       clicked: true
     });
   }
+  resetHandler() {
+    this.setState({
+      all: false,
+      first: false,
+      second: false,
+      third: false,
+      clicked: false
+    });
+  }
 
   render() {
     let markers;
@@ -79,7 +90,7 @@ export default class MapScreen extends Component {
             coordinate={county.latLong}
             pinColor={pin}
             key={county.county}
-            title={county.county}
+            title={county.county + ' county'}
             description={"Exceedances: " + exceedances}
           />
         );
@@ -90,12 +101,12 @@ export default class MapScreen extends Component {
       <View>
         <View style={styles.mapContainer}>
           <MapView
-            provider={PROVIDER_GOOGLE}
+            // provider={PROVIDER_GOOGLE}
             style={styles.map}
             region={{
               latitude: 36.778259,
               longitude: -119.417931,
-              latitudeDelta: 11.0,
+              latitudeDelta: 13.0,
               longitudeDelta: 0.0121
             }}
           >
@@ -104,21 +115,28 @@ export default class MapScreen extends Component {
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button}title="All" onPress={() => this.allYearsHandler()} />
-          <Button style={styles.button}title="2017" onPress={() => this.firstHandler()}/>
-          <Button style={styles.button}title="2018" onPress={() => this.secondHandler()}/>
-          <Button style={styles.button}title="2019" onPress={() => this.thirdHandler()}/>
+          <Button title="All" onPress={() => this.allYearsHandler()} />
+          <Button title="2017" onPress={() => this.firstHandler()}/>
+          <Button title="2018" onPress={() => this.secondHandler()}/>
+          <Button title="2019" onPress={() => this.thirdHandler()}/>
+          <Button title="Clear" onPress={() => this.resetHandler()}/>
         </View>
 
         <View style={styles.textContainer}>
           <Text>Blue: No exceedances</Text>
           <Text>Red: Exceedances</Text>
           <Text>Tap a marker for more info.</Text>
+          <Text style={styles.androidText}>Android users: Map must be cleared before making a new selection.</Text>
         </View>
       </View>
     );
   }
 }
+
+MapScreen.navigationOptions = {
+  title: "Map",
+  headerLeft: <HeaderImage />
+};
 
 const styles = StyleSheet.create({
   mapContainer: {
@@ -146,8 +164,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     position: "absolute",
     marginVertical: 480,
-    padding: 10
+    padding: 10,
+    width: '100%'
   },
+  androidText: {
+    flex: 1,
+    position: 'absolute',
+    marginLeft: '60%'
+  }
 
 
 });

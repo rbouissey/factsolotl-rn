@@ -134,15 +134,10 @@ class SearchScreen extends React.Component {
     let content = (
       <Text>Filter search by school name, county, year, and exceedance.</Text>
     );
-    if (
-      this.state.schoolQuery === "" &&
-      this.state.countyQuery === "" &&
-      this.state.yearQuery === "" &&
-      this.state.queried === true
-    ) {
+    if (this.state.total > 100) {
       content = (
         <Text>
-          Please select a year or enter an input in one of the search fields.
+          Your query returned too many results. Try refining your search.
         </Text>
       );
     } else if (
@@ -175,10 +170,11 @@ class SearchScreen extends React.Component {
       content = <Text>Loading...</Text>;
     }
 
-
     return (
       <ScrollView style={styles.container}>
-         <Card>{content}</Card>
+        <Card>{content}</Card>
+        
+
         <Card>
           <Text>Search by school:</Text>
           <TextInput
@@ -197,33 +193,28 @@ class SearchScreen extends React.Component {
             value={this.state.countyQuery}
           />
         </Card>
-
-       <View style={styles.filters}>
-       <Filters
-          filterSelected={this.state.filterSelected}
-          applyFilters={() =>
-            this.setState({ filtersSelected: !this.state.filtersSelected })
-          }
-          toggleExceedance={() =>
-            this.setState({ exceedance: !this.state.exceedance })
-          }
-          year={this.state.yearQuery}
-          onYearSelect={e => this.setState({ yearQuery: e })}
-          exceedance={this.state.exceedance}
-        />
-       </View>
-       
-        <View style={styles.searchButton}>
-
-        
-         <Button
-          title="Search"
-          onPress={e => {
-            this.queryHandler(e);
-          }}
-        />
+        <View style={styles.filters}>
+          <Filters
+            filterSelected={this.state.filterSelected}
+            applyFilters={() =>
+              this.setState({ filtersSelected: !this.state.filtersSelected })
+            }
+            toggleExceedance={() =>
+              this.setState({ exceedance: !this.state.exceedance })
+            }
+            year={this.state.yearQuery}
+            onYearSelect={e => this.setState({ yearQuery: e })}
+            exceedance={this.state.exceedance}
+          />
         </View>
-       
+        <TouchableHighlight
+          style={styles.search}
+          onPress={e => this.queryHandler(e)}
+        >
+          <View>
+            <Text style={styles.searchButton}>Search</Text>
+          </View>
+        </TouchableHighlight>
       </ScrollView>
     );
   }
@@ -237,21 +228,33 @@ SearchScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
+    paddingTop: 15
   },
   filters: {
-    flex: 1,
+    flex: 1
   },
   exCheck: {
     padding: 10
   },
   searchButton: {
-    width: '100%',
-    backgroundColor: 'white',
-    borderRightColor: 'grey',
-    borderWidth: 1,
+    flex: 1,
+    width: "100%",
+    color: "white",
+    padding: 5
+  },
+  search: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 120,
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: "lightblue",
+    marginBottom: 20,
     position: 'absolute',
-    bottom: 55
+    bottom: 0,
+    right: 0
+    
   }
 });
 
