@@ -62,7 +62,9 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     padding: 10,
-    justifyContent: "center"
+    justifyContent: "center",
+    marginVertical: 50,
+    marginBottom: 50
   },
   close: {
     backgroundColor: "red",
@@ -81,4 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   }
 });
+
+
 export default Results;

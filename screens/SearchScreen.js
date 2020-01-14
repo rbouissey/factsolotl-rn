@@ -15,7 +15,7 @@ import HeaderImage from "../components/HeaderImage";
 import axios from "axios";
 import { v4 } from "uuid";
 import Card from "../components/Card";
-import Filters from "../components/FiltersModal";
+import Filters from "../components/Filters";
 import Results from "../containers/ResultsModal";
 
 class SearchScreen extends React.Component {
@@ -175,38 +175,10 @@ class SearchScreen extends React.Component {
       content = <Text>Loading...</Text>;
     }
 
-    let filters;
-    if (this.state.filtersSelected) {
-      filters = (
-        <Filters
-          filterSelected={this.state.filterSelected}
-          applyFilters={() =>
-            this.setState({ filtersSelected: !this.state.filtersSelected })
-          }
-          toggleExceedance={() =>
-            this.setState({ exceedance: !this.state.exceedance })
-          }
-          year={this.state.yearQuery}
-          onYearSelect={e => this.setState({ yearQuery: e })}
-          exceedance={this.state.exceedance}
-        />
-      );
-    }
 
     return (
       <ScrollView style={styles.container}>
-        <Card style={styles.filters}>
-          <TouchableHighlight
-            style={styles.filter}
-            onPress={() =>
-              this.setState({ filtersSelected: !this.state.filtersSelected })
-            }
-          >
-            <View>
-              <Text style={styles.filterButton}>Apply Filters</Text>
-            </View>
-          </TouchableHighlight>
-        </Card>
+         <Card>{content}</Card>
         <Card>
           <Text>Search by school:</Text>
           <TextInput
@@ -226,14 +198,32 @@ class SearchScreen extends React.Component {
           />
         </Card>
 
-        <Button
+       <View style={styles.filters}>
+       <Filters
+          filterSelected={this.state.filterSelected}
+          applyFilters={() =>
+            this.setState({ filtersSelected: !this.state.filtersSelected })
+          }
+          toggleExceedance={() =>
+            this.setState({ exceedance: !this.state.exceedance })
+          }
+          year={this.state.yearQuery}
+          onYearSelect={e => this.setState({ yearQuery: e })}
+          exceedance={this.state.exceedance}
+        />
+       </View>
+       
+        <View style={styles.searchButton}>
+
+        
+         <Button
           title="Search"
           onPress={e => {
             this.queryHandler(e);
           }}
         />
-        {filters}
-        <ScrollView>{content}</ScrollView>
+        </View>
+       
       </ScrollView>
     );
   }
@@ -247,31 +237,21 @@ SearchScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15
-  },
-  backgroundImage: {
-    flex: 1,
-    position: "absolute",
-    width: "100%",
-    height: "100%"
-  },
-  picker: {
-    height: 30,
-    width: "50%",
-    position: "absolute",
-    top: 0,
-    left: 0
-  },
-  switch: {
-    position: "absolute",
-    top: 0,
-    right: 0
+    paddingTop: 15,
   },
   filters: {
-    flex: 1
+    flex: 1,
   },
   exCheck: {
     padding: 10
+  },
+  searchButton: {
+    width: '100%',
+    backgroundColor: 'white',
+    borderRightColor: 'grey',
+    borderWidth: 1,
+    position: 'absolute',
+    bottom: 55
   }
 });
 

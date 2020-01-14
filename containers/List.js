@@ -8,7 +8,7 @@ const List = (props) => {
   let schools =  <Text>Enter a search to see a list of sample previews by school here.</Text>;
   if (props.queried && props.schools.length > 0) {
     schools = props.schools.map(school => {
-      
+      console.log(school.school_name)
       return (
         <View key={school.id}>        
         <Preview

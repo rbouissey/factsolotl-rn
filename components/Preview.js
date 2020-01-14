@@ -1,15 +1,8 @@
 import React from "react";
 import {
-  Button,
-  ScrollView,
-  Picker,
-  TextInput,
-  Image,
   Text,
   StyleSheet,
   View,
-  Platform,
-  TouchableWithoutFeedback,
   TouchableHighlight
 } from "react-native";
 import Card from "../components/Card";
