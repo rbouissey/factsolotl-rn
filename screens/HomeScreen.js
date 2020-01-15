@@ -2,6 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import Card from "../components/Card";
 import Factsolotl from "../assets/images/bubbleF.png";
+import Header from '../components/Header';
+import StyledText from '../components/StyledText';
+
+
 
 export default function Home() {
   return (
@@ -12,29 +16,28 @@ export default function Home() {
       />
       <Image style={styles.homeImg} source={Factsolotl} />
       <View style={styles.homeTitle}>
-        <Text style={styles.title}>Factsolotl</Text>
-        <Text>The water quality fact finder.</Text>
+        <Header style={styles.title}>Factsolotl</Header>
+        <StyledText style={styles.subTitle}>The water quality fact finder.</StyledText>
       </View>
      
-      <Card>
+      <Card style={styles.searchCard}>
        
-        <Text>
-          Use Factsolotl to search for lead results from tap water samples taken
+        <StyledText style={styles.search}>
+          Use Factsolotl to <Text style={{color: 'green', fontSize: 25, fontFamily: 'fira-bold'}}>search</Text> for lead results from tap water samples taken
           at public schools across California from 2017 to 2019.
-        </Text>
+        </StyledText>
       </Card>
 
-      <Card>
-        <Text>
-          The map shows the number of samples, per county, that had a lead
+      <Card style={styles.mapCard}>
+        <StyledText style={styles.search}>
+          The <Text style={{color: 'green', fontSize: 25, fontFamily: 'fira-bold'}}>map</Text> shows the number of samples, per county, that had a lead
           result greater than 15ppb.
-        </Text>
-        <Text>Hover over a marker for info.</Text>
+        </StyledText>
       </Card>
-      <Card style={styles.card1}>
-        <Text style={styles.dontPanic}>Dont't Panic!</Text>
-        <Text>Stay informed.</Text>
-      </Card>
+      <View style={styles.dontpanicCard}>
+        <Header style={styles.dontPanic}>Dont't Panic!</Header>
+        <StyledText>Stay informed.</StyledText>
+      </View>
     </View>
   );
 }
@@ -63,23 +66,44 @@ const styles = StyleSheet.create({
     left: 0,
     marginVertical: 50
   },
-  card1: {
-    right: 0,
+  dontpanicCard: {
+    left: 0,
     position: "absolute",
     bottom: 0,
-    marginRight: 50
+    padding: 10
   },
   homeTitle: {
+    flex: 1,
+    alignItems: 'center',
     position: 'absolute',
     top: 0,
     right: 30,
     marginVertical: 50,
-    
+
   },
   title: {
-    fontSize: 60
+    fontSize: 50,
+    fontFamily: 'fira-bold'
   },
   dontPanic: {
-    fontSize: 40
+    fontSize: 40,
+    fontFamily: 'fira-bold'
+
+  },
+  search: {
+    fontSize: 20
+  },
+  searchCard: {
+    width: '60%',
+    left: 0,
+    position: 'absolute',
+    top: '30%'
+    
+  },
+  mapCard: {
+    top: '60%',
+    width: '55%',
+    right: 0,
+    position: 'absolute',
   }
 });

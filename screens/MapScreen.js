@@ -1,85 +1,34 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, View, Button, Text } from "react-native";
+import { Platform, StyleSheet, View, Button, Text, Picker } from "react-native";
 import MapView from "react-native-maps";
 import counties from "../constants/Coordinates";
 import HeaderImage from "../components/HeaderImage";
 
-
 export default class MapScreen extends Component {
   state = {
-    all: false,
-    first: false,
-    second: false,
-    third: false,
+    year: '2019',
     clicked: false
   };
 
-  allYearsHandler() {
-    this.setState({
-      all: true,
-      first: false,
-      second: false,
-      third: false,
-      clicked: true
-    });
-  }
-  firstHandler() {
-    this.setState({
-      all: false,
-      first: true,
-      second: false,
-      third: false,
-      clicked: true
-    });
-  }
-  secondHandler() {
-    this.setState({
-      all: false,
-      first: false,
-      second: true,
-      third: false,
-      clicked: true
-    });
-  }
-  thirdHandler() {
-    this.setState({
-      all: false,
-      first: false,
-      second: false,
-      third: true,
-      clicked: true
-    });
-  }
-  resetHandler() {
-    this.setState({
-      all: false,
-      first: false,
-      second: false,
-      third: false,
-      clicked: false
-    });
-  }
 
   render() {
     let markers;
-   
-    
-    if(this.state.clicked){
+
+    if(this.state.year !== 'clear'){
       markers = counties.map(county => {
         let pin;
         let exceedances;
 
-        if(this.state.all){
-          exceedances = county.exceedances.ALL
-        } else if(this.state.first){
-          exceedances = county.exceedances.first
-        }else if(this.state.second){
-          exceedances = county.exceedances.second
-        }else if(this.state.third){
-          exceedances = county.exceedances.third
+        if (this.state.year === "all") {
+          exceedances = county.exceedances.ALL;
+        } else if (this.state.year === "2017") {
+          exceedances = county.exceedances.first;
+        } else if (this.state.year === "2018") {
+          exceedances = county.exceedances.second;
+        } else if (this.state.year === "2019") {
+          exceedances = county.exceedances.third;
         }
 
-  
         if (exceedances === 0) {
           pin = "blue";
         } else {
@@ -90,12 +39,14 @@ export default class MapScreen extends Component {
             coordinate={county.latLong}
             pinColor={pin}
             key={county.county}
-            title={county.county + ' county'}
+            title={county.county + " county"}
             description={"Exceedances: " + exceedances}
           />
         );
       });
-    } 
+
+    }
+    
 
     return (
       <View>
@@ -110,23 +61,29 @@ export default class MapScreen extends Component {
               longitudeDelta: 0.0121
             }}
           >
-           {markers}
-            
+            {markers}
           </MapView>
         </View>
+
         <View style={styles.buttonContainer}>
-          <Button title="All" onPress={() => this.allYearsHandler()} />
-          <Button title="2017" onPress={() => this.firstHandler()}/>
-          <Button title="2018" onPress={() => this.secondHandler()}/>
-          <Button title="2019" onPress={() => this.thirdHandler()}/>
-          <Button title="Clear" onPress={() => this.resetHandler()}/>
+          <Picker
+            selectedValue={this.state.year}
+            onValueChange={e => this.setState({ year: e })}
+          >
+            <Picker.Item label="CLEAR" value='clear' />
+            <Picker.Item label="ALL YEARS" value="all" />
+            <Picker.Item label="2017" value="2017" />
+            <Picker.Item label="2018" value="2018" />
+            <Picker.Item label="2019" value="2019" />
+            
+          </Picker>
         </View>
 
         <View style={styles.textContainer}>
           <Text>Blue: No exceedances</Text>
           <Text>Red: Exceedances</Text>
           <Text>Tap a marker for more info.</Text>
-          <Text style={styles.androidText}>Android users: Map must be cleared before making a new selection.</Text>
+
         </View>
       </View>
     );
@@ -151,27 +108,18 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
     position: "absolute",
-    marginVertical: 420,
-    width: '70%',
-    alignItems: "center",
-    marginLeft: '10%'
+    marginVertical: 400,
+    width: "50%",
+    right: 0
   },
   textContainer: {
     flex: 1,
     justifyContent: "space-around",
     position: "absolute",
-    marginVertical: 480,
+    marginVertical: 400,
     padding: 10,
-    width: '100%'
+    width: "100%"
   },
-  androidText: {
-    flex: 1,
-    position: 'absolute',
-    marginLeft: '60%'
-  }
-
 
 });

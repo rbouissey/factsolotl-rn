@@ -2,7 +2,7 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import Colors from '../constants/Colors';
 
-export default function StyledText(props) {
+export default function Header(props) {
   return (
     <Text style={{ ...styles.text, ...props.style }}>{props.children}</Text>
   );
@@ -11,6 +11,6 @@ export default function StyledText(props) {
 styles = StyleSheet.create({
   text: {
     color: Colors.primary,
-    fontFamily: 'fira-light'
+    fontFamily: 'fira-bold'
   }
 });

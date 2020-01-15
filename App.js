@@ -36,11 +36,12 @@ async function loadResourcesAsync() {
       require("./assets/images/bubbleF.png")
     ]),
     Font.loadAsync({
-      // This is the font that we are using for our tab bar
+
       ...Ionicons.font,
-      // We include SpaceMono because we use it in HomeScreen.js. Feel free to
-      // remove this if you are not using it in your app
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      'fira': require('./assets/fonts/FiraSans-Black.ttf'),
+      'fira-bold': require('./assets/fonts/FiraSans-ExtraBold.ttf'),
+      'fira-light': require('./assets/fonts/FiraSans-Light.ttf'),
     }),
   ]);
 }
