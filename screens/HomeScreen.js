@@ -24,7 +24,7 @@ export default function Home() {
        
         <StyledText style={styles.search}>
           Use Factsolotl to <Text style={{color: 'green', fontSize: 25, fontFamily: 'fira-bold'}}>search</Text> for lead results from tap water samples taken
-          at public schools across California from 2017 to 2019.
+          at public schools across California from 2017 to 2019. 
         </StyledText>
       </Card>
 

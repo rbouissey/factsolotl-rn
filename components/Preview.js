@@ -6,6 +6,7 @@ import {
   TouchableHighlight
 } from "react-native";
 import Card from "../components/Card";
+import StyledText from '../components/StyledText'
 
 const preview = props => {
   let exceedanceCheck;
@@ -18,16 +19,11 @@ const preview = props => {
 
   return (
     <Card style={styles.preview}>
-      <Text>{props.name}</Text>
-      <Text>{props.sampleLocation}</Text>
-
-      <View style={exceedanceCheck}>
-        <TouchableHighlight onPress={props.onSelect}>
-          <View>
+      <StyledText style={styles.header}>{props.name}</StyledText>
+      <StyledText>{props.sampleLocation}</StyledText>
+        <TouchableHighlight style={exceedanceCheck} onPress={props.onSelect}>
             <Text style={styles.detailButton}>DETAILS</Text>
-          </View>
         </TouchableHighlight>
-      </View>
     </Card>
   );
 };
@@ -38,22 +34,34 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderWidth: 0.5
   },
+
   openRed: {
     right: 0,
     top: 0,
     position: "absolute",
     backgroundColor: 'red',
     padding: 5,
+    margin: 5,
+    borderRadius: 5
   },
   openBlue: {
     right: 0,
     top: 0,
     position: "absolute",
-    backgroundColor: 'blue',
+    backgroundColor: '#0099cc',
     padding: 5,
+    margin: 5,
+    borderRadius: 5
   },
   detailButton: {
-    color: 'white'
+    color: 'white',
+    fontFamily: 'fira-bold',
+
+  },
+  header: {
+    fontFamily: 'fira-bold',
+    fontSize: 23,
+    width: '75%'
   }
 });
 

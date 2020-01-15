@@ -1,13 +1,8 @@
 import React from "react";
 import {
-  ScrollView,
-  Modal,
   StyleSheet,
   Text,
   View,
-  TouchableHighlight,
-  TouchableOpacity,
-  Button,
   Switch,
   Picker
 } from "react-native";
@@ -58,7 +53,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderColor: 'grey',
     borderWidth: 0.5,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10
   },
   exText: {
     padding: 10

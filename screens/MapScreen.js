@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, View, Button, Text, Picker } from "react-native";
 import MapView from "react-native-maps";
 import counties from "../constants/Coordinates";
-import HeaderImage from "../components/HeaderImage";
+import HeaderImage from "../components/HeaderImage";import StyledText from '../components/StyledText';
+import Header from '../components/StyledText';
 
 export default class MapScreen extends Component {
   state = {
@@ -80,10 +81,9 @@ export default class MapScreen extends Component {
         </View>
 
         <View style={styles.textContainer}>
-          <Text>Blue: No exceedances</Text>
-          <Text>Red: Exceedances</Text>
-          <Text>Tap a marker for more info.</Text>
-
+          <StyledText>Blue: No exceedances</StyledText>
+          <StyledText>Red: Exceedances</StyledText>
+          <StyledText>Tap a marker for more info.</StyledText>
         </View>
       </View>
     );
@@ -91,7 +91,7 @@ export default class MapScreen extends Component {
 }
 
 MapScreen.navigationOptions = {
-  title: "Map",
+  title: 'Map',
   headerLeft: <HeaderImage />
 };
 
@@ -111,7 +111,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginVertical: 400,
     width: "50%",
-    right: 0
+    right: 0,
+    borderColor: Platform.OS === 'android' ? 'lightgrey': 'white',
+    borderWidth: 1
   },
   textContainer: {
     flex: 1,

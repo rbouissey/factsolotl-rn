@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   close: {
-    backgroundColor: "red",
+    backgroundColor: "#cc0000",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -76,7 +76,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   closeButton: {
-    color: "white"
+    color: "white",
+    fontFamily: 'fira-bold',
+    fontSize: 20
   },
   modalContent: {
     marginTop: 50,

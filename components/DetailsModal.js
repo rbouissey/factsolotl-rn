@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  ScrollView,
   Modal,
   StyleSheet,
   Text,
   View,
-  TouchableHighlight,
-  TouchableOpacity,
-  Button
+  TouchableHighlight
 } from "react-native";
+import StyledText from "../components/StyledText";
 
 const Details = props => {
   let school = null;
@@ -19,25 +17,29 @@ const Details = props => {
     const sampleDay = sampleDate.getDate();
 
     school = (
-      <Modal animationType={"slide"} transparent={false}>
+      <Modal animationType={"slide"} transparent={true}>
         <View style={styles.modal}>
-      
           <View style={styles.modalContent}>
-          <Text>{props.loadedSchool.school_name}</Text>
-          <Text>School district: {props.loadedSchool.district}</Text>
-          <Text>Exceedance: {props.loadedSchool.action_level_exceedance}</Text>
-          <Text>Lead concentration: {props.loadedSchool.result} ppb</Text>
-          <Text>Sampled from: {props.loadedSchool.school_site_name}</Text>
-          <Text>
-            Date sampled: {sampleMonth}/{sampleDay}/{sampleYear}
-          </Text>
-          <Text>Water system: {props.loadedSchool.water_system_name}</Text>
+            <StyledText style={styles.header}>{props.loadedSchool.school_name}</StyledText>
+            <StyledText><StyledText style={styles.sub}>School district:</StyledText> {props.loadedSchool.district}</StyledText>
+            <StyledText>
+              <StyledText style={styles.sub}>Exceedance: </StyledText> {props.loadedSchool.action_level_exceedance}
+            </StyledText>
+            <StyledText><StyledText style={styles.sub}>Lead concentration:</StyledText> {props.loadedSchool.result} ppb</StyledText>
+            <StyledText><StyledText style={styles.sub}>Sampled from: </StyledText> {props.loadedSchool.school_site_name}</StyledText>
+            <StyledText>
+              <StyledText style={styles.sub}>Date sampled: </StyledText> {sampleMonth}/{sampleDay}/{sampleYear}
+            </StyledText>
+            <StyledText>
+              <StyledText style={styles.sub}>Water system: </StyledText> {props.loadedSchool.water_system_name}
+            </StyledText>
+            <TouchableHighlight
+              style={styles.close}
+              onPress={e => props.closeDetails(e)}
+            >
+              <Text style={styles.closeButton}>X</Text>
+            </TouchableHighlight>
           </View>
-          <TouchableHighlight style={styles.close} onPress={e => props.closeDetails(e)}>
-            <View >
-              <Text style={styles.closeButton}>CLOSE</Text>
-            </View>
-          </TouchableHighlight>
         </View>
       </Modal>
     );
@@ -49,24 +51,40 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     padding: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.4)"
   },
   close: {
-    backgroundColor: "red",
+    backgroundColor: "#cc0000",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    right: 0,
+    width: 30,
     height: 30,
-    borderRadius: 5
+    borderRadius: 30,
+    top: 0,
+    position: 'absolute',
+    margin: 10
   },
   closeButton: {
-    
+    fontFamily: "fira-light",
+    fontSize: 20,
     color: "white"
   },
   modalContent: {
     marginTop: 50,
-    backgroundColor: 'white'
+    padding: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "grey"
+  },
+  header: {
+    fontFamily: 'fira-bold',
+    fontSize: 30
+  },
+  sub: {
+    fontFamily: 'fira-bold'
   }
 });
 export default Details;

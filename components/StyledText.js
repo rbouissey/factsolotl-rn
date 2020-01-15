@@ -4,13 +4,14 @@ import Colors from '../constants/Colors';
 
 export default function StyledText(props) {
   return (
-    <Text style={{ ...styles.text, ...props.style }}>{props.children}</Text>
+    <Text style={{ ...styles.textStyle, ...props.style }}>{props.children}</Text>
   );
 }
 
 styles = StyleSheet.create({
-  text: {
+  textStyle: {
     color: Colors.primary,
-    fontFamily: 'fira-light'
+    fontFamily: 'fira-light',
+    fontSize: 16
   }
 });

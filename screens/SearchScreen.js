@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import {
-  Button,
   ScrollView,
-  Picker,
   TextInput,
-  Image,
-  Text,
   StyleSheet,
   View,
-  Switch,
+  Platform,
   TouchableHighlight
 } from "react-native";
 import HeaderImage from "../components/HeaderImage";
@@ -17,6 +13,8 @@ import { v4 } from "uuid";
 import Card from "../components/Card";
 import Filters from "../components/Filters";
 import Results from "../containers/ResultsModal";
+import StyledText from '../components/StyledText';
+import Header from '../components/StyledText';
 
 class SearchScreen extends React.Component {
   state = {
@@ -132,17 +130,21 @@ class SearchScreen extends React.Component {
 
   render() {
     let content = (
-      <Text>Filter search by school name, county, year, and exceedance.</Text>
+      <Header style={styles.header}>Filter search by school name, county, year, and exceedance.</Header>
     );
-    if (this.state.total > 100) {
+    let buttonText = '...'
+    let buttonStyle = styles.disabled
+    let buttonDisabled = true
+    if (this.state.queried === true &&
+      this.state.querySuccess === true && this.state.total > 100) {
       content = (
-        <Text>
+        <Header style={styles.header}>
           Your query returned too many results. Try refining your search.
-        </Text>
+        </Header>
       );
     } else if (
       this.state.queried === true &&
-      this.state.querySuccess === true
+      this.state.querySuccess === true && this.state.total <= 100
     ) {
       content = (
         <Results
@@ -163,11 +165,22 @@ class SearchScreen extends React.Component {
           seeDetails={this.state.detailsSelected}
         />
       );
+
+      buttonStyle = styles.go
+      buttonText = 'GO!'
+      buttonDisabled = false
     } else if (
       this.state.queried === true &&
       this.state.querySuccess === false
     ) {
-      content = <Text>Loading...</Text>;
+      buttonText = 'Loading...'
+      buttonDisabled = false
+      buttonStyle = styles.go
+    }
+    if(this.state.countyQuery || this.state.schoolQuery || this.state.yearQuery){
+      buttonStyle = styles.go
+      buttonText = 'GO!'
+      buttonDisabled = false
     }
 
     return (
@@ -176,7 +189,7 @@ class SearchScreen extends React.Component {
         
 
         <Card>
-          <Text>Search by school:</Text>
+          <StyledText>Search by school:</StyledText>
           <TextInput
             style={{ height: 40, width: "50%" }}
             placeholder="Search..."
@@ -185,7 +198,7 @@ class SearchScreen extends React.Component {
           />
         </Card>
         <Card>
-          <Text>Search by county:</Text>
+          <StyledText>Search by county:</StyledText>
           <TextInput
             style={{ height: 40, width: "50%" }}
             placeholder="Search..."
@@ -208,11 +221,12 @@ class SearchScreen extends React.Component {
           />
         </View>
         <TouchableHighlight
-          style={styles.search}
+          disabled={buttonDisabled}
+          style={buttonStyle}
           onPress={e => this.queryHandler(e)}
         >
           <View>
-            <Text style={styles.searchButton}>Search</Text>
+          <StyledText style={styles.searchButton}>{buttonText}</StyledText>
           </View>
         </TouchableHighlight>
       </ScrollView>
@@ -240,21 +254,39 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     color: "white",
-    padding: 5
+    padding: 5,
+    fontSize: 20,
+    fontFamily: 'fira-bold'
   },
-  search: {
+  go: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     width: 120,
     margin: 10,
     borderRadius: 5,
-    backgroundColor: "lightblue",
+    backgroundColor: "#0099cc",
     marginBottom: 20,
     position: 'absolute',
-    bottom: 0,
+    bottom: Platform.OS === 'android' ? 0 : '25%',
     right: 0
-    
+  },
+  disabled: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 120,
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: "grey",
+    marginBottom: 20,
+    position: 'absolute',
+    bottom: Platform.OS === 'android' ? 0 : '25%',
+    right: 0
+  },
+  header: {
+    fontFamily: 'fira-bold',
+    fontSize: 20
   }
 });
 
