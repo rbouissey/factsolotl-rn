@@ -10,6 +10,8 @@ import {
 import HeaderImage from "../components/HeaderImage";
 import StyledText from "../components/StyledText";
 import Card from "../components/Card";
+import BG from '../components/HeaderBG'
+
 
 export default function InfoScreen() {
   return (
@@ -94,7 +96,8 @@ export default function InfoScreen() {
 
 InfoScreen.navigationOptions = {
   title: "More Info",
-  headerLeft: <HeaderImage />
+  headerLeft: <HeaderImage />,
+  headerBackground: <BG/>
 };
 
 const styles = StyleSheet.create({

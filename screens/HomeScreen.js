@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import Factsolotl from "../assets/images/bubbleF.png";
 import Header from '../components/Header';
 import StyledText from '../components/StyledText';
+import Colors from '../constants/Colors'
 
 
 
@@ -16,7 +17,7 @@ export default function Home() {
       />
       <Image style={styles.homeImg} source={Factsolotl} />
       <View style={styles.homeTitle}>
-        <Header style={styles.title}>Factsolotl</Header>
+        <Text style={styles.title}>Factsolotl</Text>
         <StyledText style={styles.subTitle}>The water quality fact finder.</StyledText>
       </View>
      
@@ -24,7 +25,7 @@ export default function Home() {
        
         <StyledText style={styles.search}>
           Use Factsolotl to <Text style={{color: 'green', fontSize: 25, fontFamily: 'fira-bold'}}>search</Text> for lead results from tap water samples taken
-          at public schools across California from 2017 to 2019. 
+          at public schools across California. 
         </StyledText>
       </Card>
 
@@ -35,7 +36,7 @@ export default function Home() {
         </StyledText>
       </Card>
       <View style={styles.dontpanicCard}>
-        <Header style={styles.dontPanic}>Dont't Panic!</Header>
+        <Text style={styles.dontPanic}>Dont't Panic!</Text>
         <StyledText>Stay informed.</StyledText>
       </View>
     </View>
@@ -83,11 +84,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    fontFamily: 'fira-bold'
+    fontFamily: 'fira-bold',
+    color: Colors.primary
   },
   dontPanic: {
     fontSize: 40,
-    fontFamily: 'fira-bold'
+    fontFamily: 'fira-bold',
+    color: Colors.primary
 
   },
   search: {

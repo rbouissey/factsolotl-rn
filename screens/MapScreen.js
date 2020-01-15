@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, View, Button, Text, Picker } from "react-native";
 import MapView from "react-native-maps";
 import counties from "../constants/Coordinates";
-import HeaderImage from "../components/HeaderImage";import StyledText from '../components/StyledText';
-import Header from '../components/StyledText';
+import HeaderImage from "../components/HeaderImage";
+import StyledText from '../components/StyledText';
+import BG from '../components/HeaderBG'
+
 
 export default class MapScreen extends Component {
   state = {
@@ -58,7 +60,7 @@ export default class MapScreen extends Component {
             region={{
               latitude: 36.778259,
               longitude: -119.417931,
-              latitudeDelta: 13.0,
+              latitudeDelta: 15.0,
               longitudeDelta: 0.0121
             }}
           >
@@ -91,8 +93,7 @@ export default class MapScreen extends Component {
 }
 
 MapScreen.navigationOptions = {
-  title: 'Map',
-  headerLeft: <HeaderImage />
+  header: null
 };
 
 const styles = StyleSheet.create({
@@ -101,10 +102,12 @@ const styles = StyleSheet.create({
     height: 400,
     width: "100%",
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
+    top: 0
   },
   map: {
     ...StyleSheet.absoluteFillObject
+    
   },
   buttonContainer: {
     flex: 1,

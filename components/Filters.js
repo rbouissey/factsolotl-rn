@@ -6,6 +6,7 @@ import {
   Switch,
   Picker
 } from "react-native";
+import StyledText from "./StyledText";
 
 const Filters = props => {
   let exceedanceCheck;
@@ -20,7 +21,7 @@ const Filters = props => {
           onValueChange={props.toggleExceedance}
         />
         <View style={styles.exText}>
-          <Text>Exceedance filter: {exceedanceCheck}</Text>
+          <StyledText>Only show schools with exceedances: <StyledText style={styles.exToggle}>{exceedanceCheck}</StyledText></StyledText>
         </View>
        
       </View>
@@ -32,9 +33,9 @@ const Filters = props => {
         }}
       >
         <Picker.Item label="ALL YEARS" value="" />
-        <Picker.Item label="2017" value="2017" />
-        <Picker.Item label="2018" value="2018" />
         <Picker.Item label="2019" value="2019" />
+        <Picker.Item label="2018" value="2018" />
+        <Picker.Item label="2017" value="2017" />
       </Picker>
   
     </View>
@@ -54,13 +55,19 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 0.5,
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+    flexWrap: 'wrap'
+    
   },
   exText: {
     padding: 10
   },
   picker: {
     width: '50%'
+  },
+  exToggle: {
+    fontFamily: 'fira-bold',
+    width: '90%'
   }
   
 });

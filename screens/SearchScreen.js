@@ -5,9 +5,11 @@ import {
   StyleSheet,
   View,
   Platform,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from "react-native";
 import HeaderImage from "../components/HeaderImage";
+import BG from '../components/HeaderBG'
 import axios from "axios";
 import { v4 } from "uuid";
 import Card from "../components/Card";
@@ -136,15 +138,19 @@ class SearchScreen extends React.Component {
     let buttonStyle = styles.disabled
     let buttonDisabled = true
     if (this.state.queried === true &&
-      this.state.querySuccess === true && this.state.total > 100) {
+      this.state.querySuccess === true && this.state.total > 300) {
       content = (
         <Header style={styles.header}>
           Your query returned too many results. Try refining your search.
         </Header>
+        
       );
+      buttonText = 'Try again?'
+      buttonStyle = styles.go
+      buttonDisabled = false
     } else if (
       this.state.queried === true &&
-      this.state.querySuccess === true && this.state.total <= 100
+      this.state.querySuccess === true
     ) {
       content = (
         <Results
@@ -174,10 +180,11 @@ class SearchScreen extends React.Component {
       this.state.querySuccess === false
     ) {
       buttonText = 'Loading...'
-      buttonDisabled = false
       buttonStyle = styles.go
+      buttonDisabled = false
     }
-    if(this.state.countyQuery || this.state.schoolQuery || this.state.yearQuery){
+    if((this.state.countyQuery || this.state.schoolQuery || this.state.yearQuery) && (this.state.queried === false &&
+      this.state.querySuccess === false)){
       buttonStyle = styles.go
       buttonText = 'GO!'
       buttonDisabled = false
@@ -189,7 +196,7 @@ class SearchScreen extends React.Component {
         
 
         <Card>
-          <StyledText>Search by school:</StyledText>
+          <StyledText>Enter school name:</StyledText>
           <TextInput
             style={{ height: 40, width: "50%" }}
             placeholder="Search..."
@@ -198,7 +205,7 @@ class SearchScreen extends React.Component {
           />
         </Card>
         <Card>
-          <StyledText>Search by county:</StyledText>
+          <StyledText>Enter county:</StyledText>
           <TextInput
             style={{ height: 40, width: "50%" }}
             placeholder="Search..."
@@ -235,9 +242,10 @@ class SearchScreen extends React.Component {
 }
 
 SearchScreen.navigationOptions = {
-  title: "Search",
-  headerLeft: <HeaderImage />
-};
+  title: 'Search',
+  headerLeft: <HeaderImage />,
+  headerBackground: <BG/>
+}
 
 const styles = StyleSheet.create({
   container: {
